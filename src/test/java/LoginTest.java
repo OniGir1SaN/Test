@@ -91,4 +91,20 @@ public class LoginTest extends BaseTest {
         entity.setPassword("");
         submitFormAndVerifyError(entity, "Обязательно к заполнению");
     }
+
+    @Test
+    public void testTextLogin1() {
+        String expectedText3 = "Готовы к новым приключениям?";
+
+        Assert.assertTrue(loginPage.isTextLogin1Correct(expectedText3),
+                "Текст для Login1 не соответствует ожидаемому тексту.");
+    }
+
+    @Test
+    public void testTextLogin2() {
+        String expectedText4 = "Войдите и начнем!";
+
+        Assert.assertTrue(loginPage.isTextLogin2Correct(expectedText4),
+                "Текст для Login2 не соответствует ожидаемому тексту.");
+    }
 }

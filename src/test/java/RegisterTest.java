@@ -158,6 +158,6 @@ public class RegisterTest extends BaseTest {
         String expectedText4 = "Присоединяйтесь к нам, чтобы начать бронировать уникальные места и управлять своими поездками с легкостью.";
 
         Assert.assertTrue(registerPage.isTextRegister4Correct(expectedText4),
-                "Text for Register1 does not match the expected text.");
+                "Текст для Register4 не соответствует ожидаемому тексту.");
     }
 }

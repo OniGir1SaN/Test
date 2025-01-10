@@ -1,1 +1,0 @@
-{"uuid":"3e16d549-a542-4c6e-9ecd-acb1f0864297","name":"testik.setup","children":["d8dcac81-d42f-44a9-8616-3649af30406d"],"description":"","befores":[{"name":"setup","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1736332790460,"stop":1736332791374}],"afters":[],"start":1736332790460,"stop":1736332791374}

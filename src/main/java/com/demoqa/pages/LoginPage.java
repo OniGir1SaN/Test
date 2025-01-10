@@ -1,7 +1,6 @@
 package com.demoqa.pages;
 
 import com.demoqa.entities.LoginEntity;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -28,8 +27,11 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//button[@type='submit']")
     public WebElement submitBtn;
 
-    @FindBy(xpath = "//span[@class='_forgot_10rpk_21']")
-    public WebElement forgotPasswordBtn;
+    @FindBy(xpath = "//h1[@class='_h1_10rpk_8']")
+    public WebElement textLogin1;
+
+    @FindBy(xpath = "//p[@class='_titleP_10rpk_14']")
+    public WebElement textLogin2;
 
     public LoginPage fillUpLoginForm(LoginEntity loginEntity) {
         webElementActions.sendKeys(emailInput, loginEntity.getEmail())
@@ -58,5 +60,13 @@ public class LoginPage extends BasePage {
             return errorMessageElement2.getText();
         }
         return "";
+    }
+
+    public boolean isTextLogin1Correct(String expectedText) {
+        return textLogin1.getText().equals(expectedText);
+    }
+
+    public boolean isTextLogin2Correct(String expectedText) {
+        return textLogin2.getText().equals(expectedText);
     }
 }
