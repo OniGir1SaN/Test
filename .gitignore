@@ -11,6 +11,24 @@ target/
 *.iws
 *.iml
 *.ipr
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/vcs.xml
+.idea/**/workspace.xml
+**/*.class
+
+### log ###
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*.swn
+
+### allure ###
+allure-results/
+allure-report/
 
 ### Eclipse ###
 .apt_generated
@@ -36,3 +54,28 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Windows ###
+Thumbs.db
+ehthumbs.db
+
+# Maven specific
+target/
+dependency-reduced-pom.xml
+build.log
+.mvn/timing.properties
+mvnw*
+
+# Gradle specific
+.gradle/
+build/
+*.gradle[.kts]
+gradle-app.setting
+
+# Temporary and test files
+.cache/
+.pytest_cache/
+*.pid
+*.seed
+*.pid.lock
+

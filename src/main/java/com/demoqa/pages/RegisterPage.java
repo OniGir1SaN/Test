@@ -45,6 +45,17 @@ public class RegisterPage extends BasePage {
     @FindBy(xpath = "//input[@placeholder='Повторите пароль']")
     public WebElement placeholderPassword2;
 
+    @FindBy(xpath = "//h1[@class='_h1_k0ma6_7']")
+    public WebElement textRegister1;
+
+    @FindBy(xpath = "//p[@class='_titleP_k0ma6_13']")
+    public WebElement textRegister2;
+
+    @FindBy(xpath = "//h1[@class='_h1_1p6u8_44']")
+    public WebElement textRegister3;
+
+    @FindBy(xpath = "//p[@class='_p_1p6u8_51']")
+    public WebElement textRegister4;
 
     public String getErrorMessage() {
         if (errorMessageElement.isDisplayed()) {
@@ -68,5 +79,21 @@ public class RegisterPage extends BasePage {
         String[] fieldNames = {"Имя", "Введите почту", "Введите пароль", "Повторите пароль"};
 
         webElementActions.verifyPlaceholders(elements, expectedPlaceholders, fieldNames);
+    }
+
+    public boolean isTextRegister1Correct(String expectedText) {
+        return textRegister1.getText().equals(expectedText);
+    }
+
+    public boolean isTextRegister2Correct(String expectedText) {
+        return textRegister2.getText().equals(expectedText);
+    }
+
+    public boolean isTextRegister3Correct(String expectedText) {
+        return textRegister3.getText().equals(expectedText);
+    }
+
+    public boolean isTextRegister4Correct(String expectedText) {
+        return textRegister4.getText().equals(expectedText);
     }
 }

@@ -91,13 +91,4 @@ public class LoginTest extends BaseTest {
         entity.setPassword("");
         submitFormAndVerifyError(entity, "Обязательно к заполнению");
     }
-//
-//    @Test(groups = "success")
-//    public void testLoginWithValidCredentials() {
-//        Allure.step("Начало теста входа с валидными данными");
-//
-//        LoginEntity entity = randomUtils.generateRandomValidLoginEntity();
-//        loginPage.fillUpLoginForm(entity);
-//        webElementActions.click(loginPage.submitBtn);
-//    }
 }

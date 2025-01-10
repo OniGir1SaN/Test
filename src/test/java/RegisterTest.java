@@ -24,7 +24,6 @@ public class RegisterTest extends BaseTest {
         Allure.step("Проверка ошибки: " + expectedErrorMessage);
     }
 
-
     private void verifySuccessfulRegistration() {
         String currentUrl = driver.getCurrentUrl();
         Assert.assertTrue(currentUrl.contains("/code"),
@@ -120,7 +119,7 @@ public class RegisterTest extends BaseTest {
     public void testRegistrationWithMismatchedPasswords() {
         RegisterEntity entity = randomUtils.generateRandomRegisterEntity();
         entity.setPassword("Password1!");
-        entity.setPassword2("Password2!");  // Несовпадающие парол
+        entity.setPassword2("Password2!");  // Несовпадающие пароль
         submitFormAndVerifyError(entity, "Пароли не совпадают");
     }
 
@@ -128,5 +127,37 @@ public class RegisterTest extends BaseTest {
     public void testRegisterPlaceholders() {
         registerPage.verifyFormRegisterPlaceholders();
         Allure.step("Проверка плейсхолдеров полей Имя, Введите почту, Введите пароль, Повторите пароль");
+    }
+
+    @Test
+    public void testTextRegister1() {
+        String expectedText1 = "Зарегистрируйтесь, и ваш отпуск станет ближе.";
+
+        Assert.assertTrue(registerPage.isTextRegister1Correct(expectedText1),
+                "Текст для Register1 не соответствует ожидаемому тексту.");
+    }
+
+    @Test
+    public void testTextRegister2() {
+        String expectedText2 = "Введите необходимые данные.";
+
+        Assert.assertTrue(registerPage.isTextRegister2Correct(expectedText2),
+                "Текст для Register2 не соответствует ожидаемому тексту.");
+    }
+
+    @Test
+    public void testTextRegister3() {
+        String expectedText3 = "Создайте аккаунт";
+
+        Assert.assertTrue(registerPage.isTextRegister3Correct(expectedText3),
+                "Текст для Register3 не соответствует ожидаемому тексту.");
+    }
+
+    @Test
+    public void testTextRegister4() {
+        String expectedText4 = "Присоединяйтесь к нам, чтобы начать бронировать уникальные места и управлять своими поездками с легкостью.";
+
+        Assert.assertTrue(registerPage.isTextRegister4Correct(expectedText4),
+                "Text for Register1 does not match the expected text.");
     }
 }
