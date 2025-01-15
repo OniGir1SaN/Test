@@ -25,7 +25,7 @@ public class ChromeWebDriver {
         if(Boolean.parseBoolean(getValue("headless"))) {
             options.addArguments("--headless");
         }
-        WebDriver driver = new ChromeDriver();
+        WebDriver driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         return driver;
