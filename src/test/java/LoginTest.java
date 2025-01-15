@@ -1,12 +1,21 @@
 import com.demoqa.entities.LoginEntity;
 import com.demoqa.enums.Endpoints;
+import com.demoqa.listener.ScreenshotListener;
 import com.demoqa.utils.ConfigReader;
 import io.qameta.allure.Allure;
+import io.qameta.allure.Attachment;
+import io.qameta.allure.testng.AllureTestNg;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 
+@Listeners({AllureTestNg.class, ScreenshotListener.class})
 public class LoginTest extends BaseTest {
 
     @BeforeMethod
@@ -41,7 +50,7 @@ public class LoginTest extends BaseTest {
 
     @Test(groups = "validation")
     public void testLoginPlaceholders() {
-        loginPage.verifyEmailAndPasswordPlaceholders(); // Проверка плейсхолдеров
+        loginPage.verifyEmailAndPasswordPlaceholders();
         Allure.step("Проверка плейсхолдеров полей email и пароля");
     }
 
@@ -106,5 +115,17 @@ public class LoginTest extends BaseTest {
 
         Assert.assertTrue(loginPage.isTextLogin2Correct(expectedText4),
                 "Текст для Login2 не соответствует ожидаемому тексту.");
+    }
+
+    @Attachment(value = "Screenshot on Failure", type = "image/png")
+    public byte[] takeScreenshot() {
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+    }
+
+    @AfterMethod
+    public void tearDown(ITestResult result) {
+        if (ITestResult.FAILURE == result.getStatus()) {
+            takeScreenshot();
+        }
     }
 }

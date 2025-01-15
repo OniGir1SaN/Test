@@ -6,9 +6,9 @@ public enum Endpoints {
 
     SIGNUP("/sign-up"),
     SIGNIN("/sign-in"),
-    AUTH("/auth"),
     RESET("/sign-in/reset-password"),
     SEARCH("/search"),
+    TRIPS("/trips"),
     SUPPORT("/support"),
     POLICY("/policy");
 

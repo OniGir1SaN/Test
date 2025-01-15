@@ -47,9 +47,8 @@ public class ResetPasswordPage extends BasePage{
     }
 
     public void fillUpResetPasswordForm(ResetPasswordEntity entity) {
-        // Используем элементы страницы для ввода нового пароля и подтверждения пароля
-        passwordInput.sendKeys(entity.getPassword()); // Ввод нового пароля
-        password2Input.sendKeys(entity.getPassword2()); // Ввод повторного пароля
+        passwordInput.sendKeys(entity.getPassword());
+        password2Input.sendKeys(entity.getPassword2());
     }
 
     public void verifyFormResetPasswordPlaceholders() {

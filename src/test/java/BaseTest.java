@@ -1,6 +1,4 @@
 import com.demoqa.drivers.DriverManager;
-import com.demoqa.entities.LoginEntity;
-import com.demoqa.entities.RegisterEntity;
 import com.demoqa.helper.AlertHelper;
 import com.demoqa.helper.BrowserHelper;
 import com.demoqa.helper.IframeHelper;
@@ -16,6 +14,7 @@ import org.testng.annotations.Listeners;
 import io.qameta.allure.testng.AllureTestNg;
 
 @Listeners({AllureTestNg.class, ScreenshotListener.class})
+
 public class BaseTest {
     protected WebDriver driver;
     protected RandomUtils randomUtils;
@@ -29,6 +28,7 @@ public class BaseTest {
     protected LoginPage loginPage;
     protected ResetPasswordPage resetPasswordPage;
     protected MainMenuPage mainMenuPage;
+    protected SearchPage searchPage;
 
     @BeforeClass(alwaysRun = true)
     public void setUp(){
@@ -44,6 +44,7 @@ public class BaseTest {
         loginPage = new LoginPage();
         resetPasswordPage = new ResetPasswordPage();
         mainMenuPage = new MainMenuPage();
+        searchPage = new SearchPage();
 
         PageFactory.initElements(driver, registerPage);
         PageFactory.initElements(driver, loginPage);

@@ -1,6 +1,7 @@
 package com.demoqa.helper;
 
 import com.demoqa.drivers.DriverManager;
+import com.demoqa.utils.ConfigReader;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
+import static com.demoqa.drivers.DriverManager.getDriver;
 
 public class WebElementActions {
 
@@ -152,6 +154,39 @@ public class WebElementActions {
                     "Плейсхолдер для поля '" + fieldNames[i] + "' неверный");
             System.out.println(fieldNames[i] + ": " + actualPlaceholder);
         }
+    }
+
+
+    public void verifyText(String actualText, String expectedText, String message) {
+        try {
+            Assert.assertEquals(actualText, expectedText, message);
+            System.out.println("Успешная проверка: " + message);
+        } catch (AssertionError e) {
+            System.err.println("Ошибка проверки: " + message + "\n" +
+                    "Ожидалось: " + expectedText + ", но было: " + actualText);
+            throw e; // Повторно выбрасываем исключение для учета в отчете.
+        }
+    }
+
+    public void verifyElementIsDisplayed(WebElement element, String elementName) {
+        try {
+            Assert.assertTrue(element.isDisplayed(), "Элемент '" + elementName + "' не отображается на странице.");
+            System.out.println("Элемент '" + elementName + "' успешно отображается.");
+        } catch (AssertionError e) {
+            System.err.println("Ошибка: элемент '" + elementName + "' не отображается на странице.");
+            throw e; // Повторно выбрасываем исключение для учета в отчете.
+        }
+    }
+
+
+    // Универсальный метод для проверки базового URL
+    public void assertBaseUrlIsCurrent() {
+        String expectedBaseUrl = ConfigReader.getValue("baseURL");
+        String currentBaseUrl = getDriver().getCurrentUrl();
+
+        // Проверка, что текущий URL содержит базовый URL
+        Assert.assertTrue(currentBaseUrl.startsWith(expectedBaseUrl),
+                "URL не соответствует базовому URL после возврата. Текущий URL: " + currentBaseUrl);
     }
 
 

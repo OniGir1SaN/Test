@@ -39,18 +39,24 @@ public class ScreenshotListener implements ITestListener {
         System.out.println("Test failed: " + result.getName());
         if (driver != null) {
             System.out.println("Taking screenshot...");
-            saveScreenshotPNG(); // Делает скриншот при неудаче
+            saveScreenshotPNG(result.getName()); // Делает скриншот при неудаче
         } else {
             System.out.println("Driver is null, cannot take screenshot.");
         }
     }
 
-    @Attachment(value = "Page screenshot", type = "image/png")
-    public byte[] saveScreenshotPNG() {
+    /**
+     * Снимок экрана и добавление в Allure отчет.
+     * @param testName Имя теста, используется в качестве аттачмента.
+     * @return Скриншот в формате байтов.
+     */
+    @Attachment(value = "Screenshot for failed test: {testName}", type = "image/png")
+    public byte[] saveScreenshotPNG(String testName) {
         try {
             if (driver instanceof TakesScreenshot) {
-                // Снимаем скриншот страницы
-                return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+                byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+                System.out.println("Screenshot captured for test: " + testName);
+                return screenshot;
             } else {
                 System.err.println("Driver does not support screenshots.");
                 return null;
@@ -69,5 +75,6 @@ public class ScreenshotListener implements ITestListener {
     @Override
     public void onFinish(ITestContext context) {
         System.out.println("Test execution finished.");
+        // Можно добавить код для очистки ресурсов, анализа отчетов и т.д.
     }
 }

@@ -1,9 +1,12 @@
 import com.demoqa.entities.RegisterEntity;
 import com.demoqa.enums.Endpoints;
+import com.demoqa.enums.TextElementsRegister;
 import com.demoqa.utils.ConfigReader;
 import io.qameta.allure.Allure;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class RegisterTest extends BaseTest {
@@ -129,35 +132,19 @@ public class RegisterTest extends BaseTest {
         Allure.step("Проверка плейсхолдеров полей Имя, Введите почту, Введите пароль, Повторите пароль");
     }
 
-    @Test
-    public void testTextRegister1() {
-        String expectedText1 = "Зарегистрируйтесь, и ваш отпуск станет ближе.";
-
-        Assert.assertTrue(registerPage.isTextRegister1Correct(expectedText1),
-                "Текст для Register1 не соответствует ожидаемому тексту.");
+    @Test(dataProvider = "textElementsProvider")
+    public void testTextRegister(TextElementsRegister element, String expectedText, String errorMessage) {
+        String actualText = driver.findElement(By.xpath(element.getXpath())).getText();
+        Assert.assertEquals(actualText, expectedText, errorMessage);
     }
 
-    @Test
-    public void testTextRegister2() {
-        String expectedText2 = "Введите необходимые данные.";
-
-        Assert.assertTrue(registerPage.isTextRegister2Correct(expectedText2),
-                "Текст для Register2 не соответствует ожидаемому тексту.");
-    }
-
-    @Test
-    public void testTextRegister3() {
-        String expectedText3 = "Создайте аккаунт";
-
-        Assert.assertTrue(registerPage.isTextRegister3Correct(expectedText3),
-                "Текст для Register3 не соответствует ожидаемому тексту.");
-    }
-
-    @Test
-    public void testTextRegister4() {
-        String expectedText4 = "Присоединяйтесь к нам, чтобы начать бронировать уникальные места и управлять своими поездками с легкостью.";
-
-        Assert.assertTrue(registerPage.isTextRegister4Correct(expectedText4),
-                "Текст для Register4 не соответствует ожидаемому тексту.");
+    @DataProvider(name = "textElementsProvider")
+    public Object[][] textElementsProvider() {
+        return new Object[][]{
+                {TextElementsRegister.REGISTER_TITLE1, "Зарегистрируйтесь, и ваш отпуск станет ближе.", "Текст для REGISTER_TITLE1 не соответствует ожидаемому тексту."},
+                {TextElementsRegister.REGISTER_PARAGRAPH1, "Введите необходимые данные.", "Текст для REGISTER_PARAGRAPH1 не соответствует ожидаемому тексту."},
+                {TextElementsRegister.REGISTER_TITLE2, "Создайте аккаунт", "Текст для REGISTER_TITLE2 не соответствует ожидаемому тексту."},
+                {TextElementsRegister.REGISTER_PARAGRAPH2, "Присоединяйтесь к нам, чтобы начать бронировать уникальные места и управлять своими поездками с легкостью.", "Текст для REGISTER_PARAGRAPH2 не соответствует ожидаемому тексту."}
+        };
     }
 }
