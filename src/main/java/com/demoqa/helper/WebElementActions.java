@@ -116,10 +116,26 @@ public class WebElementActions {
         return this;
     }
 
-    // Листает до элемента
     public WebElementActions scrollToElement(WebElement element) {
-        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) DriverManager.getDriver();
-        javascriptExecutor.executeScript("arguments[0].scrollIntoView(true);", element);
+        WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(element));
+
+        Point elementLocation = element.getLocation();
+        int elementYPosition = elementLocation.getY();
+
+        Dimension windowSize = DriverManager.getDriver().manage().window().getSize();
+        int windowHeight = windowSize.getHeight();
+
+        if (elementYPosition > windowHeight) {
+            new Actions(DriverManager.getDriver())
+                    .moveToElement(element)
+                    .perform();
+        } else {
+            new Actions(DriverManager.getDriver())
+                    .moveToElement(element)
+                    .perform();
+        }
+
         return this;
     }
 

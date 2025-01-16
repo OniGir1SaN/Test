@@ -13,7 +13,7 @@ public class RandomUtils {
 
     private static final Faker faker = new Faker();
 
-    public LoginEntity generateRandomValidLoginEntity() {
+    public LoginEntity ValidLoginEntity() {
         LoginEntity entity = new LoginEntity();
         entity.setEmail("GOku.first@proton.me");
         entity.setPassword("AAAAA1!!CloseEye1");

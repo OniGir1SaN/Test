@@ -10,6 +10,7 @@ public enum Endpoints {
     SEARCH("/search"),
     TRIPS("/trips"),
     SUPPORT("/support"),
+    PROFILE("/profile"),
     POLICY("/policy");
 
 
@@ -23,5 +24,9 @@ public enum Endpoints {
     @Override
     public String toString() {
         return this.endpoint;
+    }
+
+    public String getEndpoint() {
+        return endpoint;
     }
 }

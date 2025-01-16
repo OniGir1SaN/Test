@@ -15,7 +15,10 @@ public class MainMenuPage extends BasePage {
     @FindBy(xpath = "//button[@class='_btn_1er5i_27'][1]")
     public WebElement searchBtn;
 
-    @FindBy(xpath = "//button[@class='_btn_1er5i_27'][2]")
+    @FindBy(xpath = "(//h4[@class='_menuText_1er5i_51'])[2]")
+    public WebElement travellingBtn;
+
+    @FindBy(xpath = "(//h4[@class='_menuText_1er5i_51'])[3]")
     public WebElement supportBtn;
 
     @FindBy(xpath = "//button[@class='_search_1tksv_73']")
@@ -24,11 +27,17 @@ public class MainMenuPage extends BasePage {
     @FindBy(xpath = "//button[text()='Поиск']")
     public WebElement cellarSearchBtn;
 
+    @FindBy(xpath = "//button[text()='Мои поездки']")
+    public WebElement cellarTravellingBtn;
+
     @FindBy(xpath = "//button[text()='Поддержка']")
     public WebElement cellarSupportBtn;
 
-    @FindBy(xpath = "//button[text()='Правовая информация']")
-    public WebElement cellarLegalInformationBtn;
+    @FindBy(xpath = "//a[@class='_btnA_1t1ke_73']")
+    public WebElement cellarVendorBtn;
+
+    @FindBy(xpath = "//button[@class='_btnUser_1e87t_90']")
+    public WebElement profileBtn;
 
     @FindBy(xpath = "//img[@alt='Play Market']")
     public WebElement cellarPlayMarketBtn;
@@ -48,8 +57,16 @@ public class MainMenuPage extends BasePage {
         webElementActions.click(searchBtn);
     }
 
+    public void clickTravellingButton() {
+        webElementActions.click(travellingBtn);
+    }
+
     public void clickSupportButton() {
         webElementActions.click(supportBtn);
+    }
+
+    public void clickProfileButton() {
+        webElementActions.click(profileBtn);
     }
 
     public void clickStartButton() {
@@ -60,12 +77,16 @@ public class MainMenuPage extends BasePage {
         webElementActions.click(cellarSearchBtn);
     }
 
-    public void clickCellarSupportButton() {
-        webElementActions.click(cellarSupportBtn);
+    public void clickCellarTravellingButton() {
+        webElementActions.click(cellarTravellingBtn);
     }
 
-    public void clickCellarLegalInformationButton() {
-        webElementActions.click(cellarLegalInformationBtn);
+    public void clickCellarVendorButton() {
+        webElementActions.click(cellarVendorBtn);
+    }
+
+    public void clickCellarSupportButton() {
+        webElementActions.click(cellarSupportBtn);
     }
 
     public void clickCellarPlayMarketButton() {

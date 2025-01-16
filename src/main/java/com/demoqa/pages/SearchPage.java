@@ -52,56 +52,21 @@ public class SearchPage extends  BasePage{
 
     public void verifyPageElements() {
         WebElement[] elements = {
-                contentBackground, locationInput, calendarButton,
+                contentBackground, locationInput, locationPlaceholder, calendarButton,
                 guestsAndRoomsButton, roomsPlusButton, roomsMinusButton,
-                guestPlusButton, guestMinusButton, searchButton
+                roomCountLabel, guestPlusButton, guestMinusButton,
+                guestCountLabel, issueInput, issuePlaceholder, carousel, searchButton
         };
         String[] elementNames = {
-                "Фон содержимого", "Поле ввода локации", "Кнопка календаря",
-                "Кнопка выбора гостей и комнат", "Кнопка увеличения комнат",
-                "Кнопка уменьшения комнат", "Кнопка увеличения гостей",
-                "Кнопка уменьшения гостей", "Кнопка поиска"
+                "Фон содержимого", "Поле ввода локации", "Плейсхолдер локации", "Кнопка календаря",
+                "Кнопка выбора гостей и комнат", "Кнопка увеличения комнат", "Кнопка уменьшения комнат",
+                "Метка количества комнат", "Кнопка увеличения гостей", "Кнопка уменьшения гостей",
+                "Метка количества гостей", "Поле ввода проблемы", "Плейсхолдер проблемы", "Карусель", "Кнопка поиска"
         };
 
         for (int i = 0; i < elements.length; i++) {
             webElementActions.verifyElementIsDisplayed(elements[i], elementNames[i]);
         }
-    }
-
-    public void adjustRoomsCount(int targetCount) {
-        int currentCount = Integer.parseInt(roomCountLabel.getText());
-        while (currentCount < targetCount) {
-            roomsPlusButton.click();
-            currentCount++;
-        }
-        while (currentCount > targetCount) {
-            roomsMinusButton.click();
-            currentCount--;
-        }
-    }
-
-    public void adjustGuestCount(int targetCount) {
-        int currentCount = Integer.parseInt(guestCountLabel.getText());
-        while (currentCount < targetCount) {
-            guestPlusButton.click();
-            currentCount++;
-        }
-        while (currentCount > targetCount) {
-            guestMinusButton.click();
-            currentCount--;
-        }
-    }
-
-    public void searchPagePlaceholders() {
-        WebElement[] elements = {locationPlaceholder,issuePlaceholder};
-        String[] expectedPlaceholders = {"Локация", "Есть кондиционер?"};
-        String[] fieldNames = {"Локация", "Есть кондиционер?"};
-
-        webElementActions.verifyPlaceholders(elements, expectedPlaceholders, fieldNames);
-    }
-
-    public void performSearch() {
-        searchButton.click();
     }
 
 }

@@ -1,4 +1,7 @@
 import com.demoqa.drivers.DriverManager;
+import com.demoqa.entities.LoginEntity;
+import com.demoqa.entities.RegisterEntity;
+import com.demoqa.entities.ResetPasswordEntity;
 import com.demoqa.helper.AlertHelper;
 import com.demoqa.helper.BrowserHelper;
 import com.demoqa.helper.IframeHelper;
@@ -20,6 +23,10 @@ public class BaseTest {
     protected RandomUtils randomUtils;
     protected WebElementActions webElementActions;
 
+    protected LoginEntity loginEntity;
+    protected RegisterEntity registerEntity;
+    protected ResetPasswordEntity resetPasswordEntity;
+
     protected AlertHelper alertHelper;
     protected BrowserHelper browserHelper;
     protected IframeHelper iframeHelper;
@@ -36,6 +43,10 @@ public class BaseTest {
         randomUtils = new RandomUtils();
         webElementActions = new WebElementActions(driver);
 
+        loginEntity = new LoginEntity();
+        registerEntity = new RegisterEntity();
+        resetPasswordEntity = new ResetPasswordEntity();
+
         alertHelper = new AlertHelper(driver);
         browserHelper = new BrowserHelper(driver);
         iframeHelper = new IframeHelper(driver);
@@ -50,6 +61,7 @@ public class BaseTest {
         PageFactory.initElements(driver, loginPage);
         PageFactory.initElements(driver, resetPasswordPage);
         PageFactory.initElements(driver, mainMenuPage);
+        PageFactory.initElements(driver, searchPage);
     }
 
     @AfterClass(alwaysRun = true)
