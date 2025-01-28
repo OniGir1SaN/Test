@@ -5,37 +5,38 @@ import org.openqa.selenium.WebDriver;
 
 public class DriverManager {
 
-    private static WebDriver driver;
+    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
-    public static WebDriver getDriver(){
-        if (driver == null){
-            switch (ConfigReader.getValue("browser").toLowerCase()){
+    public static WebDriver getDriver() {
+        if (driver.get() == null) {
+            switch (ConfigReader.getValue("browser").toLowerCase()) {
                 case "chrome":
-                    driver = ChromeWebDriver.loadChromeWebDriver();
+                    driver.set(ChromeWebDriver.loadChromeWebDriver());
                     break;
                 case "opera":
-                    driver = OperaWebDriver.loadOperaDriver();
+                    driver.set(OperaWebDriver.loadOperaDriver());
                     break;
                 case "edge":
-                    driver = EdgeWebDriver.loadEdgeDriver();
+                    driver.set(EdgeWebDriver.loadEdgeDriver());
                     break;
-                case "fireFox":
-                    driver = FireFoxWebDriver.loadFireFoxDriver();
+                case "firefox":
+                    driver.set(FireFoxWebDriver.loadFireFoxDriver());
                     break;
                 default:
                     throw new IllegalArgumentException();
             }
-        }return driver;
+        }
+        return driver.get();
     }
 
-    public static void closeDriver(){
+    public static void closeDriver() {
         try {
-            if (driver != null){
-                driver.close();
-                driver.quit();
-                driver = null;
+            if (driver.get() != null) {
+                driver.get().close();
+                driver.get().quit();
+                driver.remove();
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.err.println("Error while closing driver");
         }
     }
