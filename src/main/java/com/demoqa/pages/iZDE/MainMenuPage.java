@@ -1,5 +1,6 @@
 package com.demoqa.pages.iZDE;
 
+import com.demoqa.pages.BasePage;
 import com.demoqa.drivers.DriverManager;
 import com.demoqa.helpers.WebElementActions;
 import org.openqa.selenium.WebElement;

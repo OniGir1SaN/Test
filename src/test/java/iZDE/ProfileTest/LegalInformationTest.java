@@ -3,6 +3,7 @@ package iZDE.ProfileTest;
 import com.demoqa.entities.iZDE.LoginEntity;
 import com.demoqa.enums.iZDE.Endpoints;
 import com.demoqa.utils.ConfigReader;
+import iZDE.BaseTest;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.By;
@@ -25,7 +26,6 @@ public class LegalInformationTest extends BaseTest {
         loginPage.fillUpLoginForm(entity);
         mainMenuPage.clickProfileButton();
 
-        // Инициализация ожидания
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 

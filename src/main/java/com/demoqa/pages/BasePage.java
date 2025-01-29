@@ -1,4 +1,4 @@
-package com.demoqa.pages.iZDE;
+package com.demoqa.pages;
 
 import com.demoqa.drivers.DriverManager;
 import com.demoqa.helpers.BrowserHelper;

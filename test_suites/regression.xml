@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Regression suite" parallel="classes" thread-count="7">
+<suite name="Regression" parallel="classes" thread-count="7">
     <test name="All Tests" verbose="2" preserve-order="true">
         <classes>
             <class name="iZDE.LoginTest"></class>
             <class name="iZDE.MainMenuTest"></class>
-            <class name="iZDE.MainMenuText"></class>
+            <class name="iZDE.MainMenuTextTest"></class>
             <class name="iZDE.ResetPasswordTest"></class>
             <class name="iZDE.RegisterTest"></class>
             <class name="iZDE.ProfileTest.CurrencyTest"></class>
             <class name="iZDE.ProfileTest.LegalInformationTest"></class>
+            <class name="iZDE.ProfileTest.ChangePasswordTest"></class>
         </classes>
     </test>
 </suite>

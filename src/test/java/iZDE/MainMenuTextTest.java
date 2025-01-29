@@ -12,7 +12,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 
-public class MainMenuText extends BaseTest {
+public class MainMenuTextTest extends BaseTest {
 
     @BeforeClass
     public void loginOnce() {

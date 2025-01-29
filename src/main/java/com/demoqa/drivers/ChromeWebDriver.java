@@ -27,7 +27,7 @@ public class ChromeWebDriver {
             options.addArguments("--disable-gpu");
         }
 
-        WebDriver driver = new ChromeDriver(options);
+        WebDriver driver = new ChromeDriver();
 
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));

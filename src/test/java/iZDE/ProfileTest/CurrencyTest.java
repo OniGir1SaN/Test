@@ -3,6 +3,7 @@ package iZDE.ProfileTest;
 import com.demoqa.entities.iZDE.LoginEntity;
 import com.demoqa.enums.iZDE.Endpoints;
 import com.demoqa.utils.ConfigReader;
+import iZDE.BaseTest;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;

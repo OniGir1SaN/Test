@@ -90,11 +90,4 @@ public class BrowserHelper {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeoutInSeconds));
         wait.until(ExpectedConditions.textToBePresentInElement(element, expectedText));
     }
-
-
-
-    // Открыть новую вкладку
-    public void openNewTab() {
-        ((JavascriptExecutor) driver).executeScript("window.open()");
-    }
 }

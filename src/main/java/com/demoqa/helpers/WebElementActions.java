@@ -239,6 +239,16 @@ public class WebElementActions {
         return this;
     }
 
+    public WebElementActions clearSendKeys(WebElement element, String txt) {
+        waitElementToBeVisible(element);
+        scrollToElement(element);
+        highlightElement(element);
+        element.clear();
+        element.sendKeys(txt);
+        return this;
+    }
+
+
     // заполняет элемент и нажимает Enter
     public WebElementActions sendKeysWithEnter(WebElement element, String txt) {
         waitElementToBeVisible(element);

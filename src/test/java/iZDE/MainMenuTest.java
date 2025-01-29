@@ -2,9 +2,7 @@ package iZDE;
 
 import com.demoqa.entities.iZDE.LoginEntity;
 import com.demoqa.enums.iZDE.Endpoints;
-import com.demoqa.enums.iZDE.TextElementsMain;
 import com.demoqa.utils.ConfigReader;
-import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;

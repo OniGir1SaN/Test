@@ -1,7 +1,7 @@
 package com.demoqa.pages.iZDE.Profile;
 
 import com.demoqa.entities.iZDE.ProfileEntity;
-import com.demoqa.pages.iZDE.BasePage;
+import com.demoqa.pages.BasePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -35,6 +35,16 @@ public class PrivateProfilePage extends BasePage {
     @FindBy(xpath = "//button[@class='_btn_10vqr_1 _btnDis_10vqr_22']")
     private WebElement saveBtn;
 
+    @FindBy(xpath = "//p[@class='_authInputErrorText_1hc7y_49']")
+    public WebElement errorMessageElement;
+
+    public String getErrorMessage() {
+        if (errorMessageElement.isDisplayed()) {
+            return errorMessageElement.getText();
+        }
+        return "";
+    }
+
     public String getNameText() {
         return name.getText();
     }
@@ -44,21 +54,19 @@ public class PrivateProfilePage extends BasePage {
     }
 
     public PrivateProfilePage fillUpProfileNameForm(ProfileEntity profileEntity){
-        webElementActions.sendKeys(firstNameInput, profileEntity.getFirstName() )
-                .sendKeys(lastNameInput, profileEntity.getLastName())
-                .sendKeys(avatar, profileEntity.getAvatar())
-                .click(saveBtn);
+        webElementActions.clearSendKeys(firstNameInput, profileEntity.getFirstName() )
+                .clearSendKeys(lastNameInput, profileEntity.getLastName())
+                .click(saveBtn)
+                .sendKeys(avatar, profileEntity.getAvatar());
         return new PrivateProfilePage();
     }
 
-    public void changeName(String firstName, String lastName) {
+    public void clearNameFields() {
         wait.until(ExpectedConditions.visibilityOf(firstNameInput));
         firstNameInput.clear();
-        firstNameInput.sendKeys(firstName);
         lastNameInput.clear();
-        lastNameInput.sendKeys(lastName);
-        saveBtn.click();
     }
+
 
     public void clickChangePassword(){
         webElementActions.click(changePasswordBtn);
@@ -72,7 +80,7 @@ public class PrivateProfilePage extends BasePage {
         webElementActions.click(changeNumberBtn);
     }
 
-    public void clickButton(WebElement button) {
-        wait.until(ExpectedConditions.elementToBeClickable(button)).click();
+    public WebElement clickSaveBtn() {
+        return saveBtn;
     }
 }

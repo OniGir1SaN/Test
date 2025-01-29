@@ -1,5 +1,6 @@
 package com.demoqa.pages.iZDE;
 
+import com.demoqa.pages.BasePage;
 import com.demoqa.entities.iZDE.RegisterEntity;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
