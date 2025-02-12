@@ -1,7 +1,6 @@
 package com.demoqa.helpers;
 
 import com.demoqa.drivers.DriverManager;
-import com.demoqa.enums.iZDEvendor.EndpointsV;
 import com.demoqa.utils.ConfigReader;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -207,16 +206,6 @@ public class WebElementActions {
         return false;
     }
 
-    public boolean assertBaseUrlIsCurrentVendor() {
-        String expectedBaseUrl = ConfigReader.getValue("baseURLV") + EndpointsV.CLIENTS.getEndpoint();
-        String currentBaseUrl = getDriver().getCurrentUrl();
-
-        Assert.assertEquals(currentBaseUrl, expectedBaseUrl,
-                "URL не соответствует ожидаемому. Ожидался: " + expectedBaseUrl + ", но был: " + currentBaseUrl);
-
-        return false;
-    }
-
     public void verifyPage(String expectedUrlPart, By elementLocator, String errorMessage) {
         String currentUrl = getDriver().getCurrentUrl();
 
@@ -231,22 +220,6 @@ public class WebElementActions {
 
         browserHelper.goBack();
         assertBaseUrlIsCurrent();
-    }
-
-    public void verifyPageVendor(String expectedUrlPart, By elementLocator, String errorMessage) {
-        String currentUrl = getDriver().getCurrentUrl();
-
-        Assert.assertTrue(currentUrl.contains(expectedUrlPart),
-                "URL не содержит '" + expectedUrlPart + "'. Текущий URL: " + currentUrl);
-
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(elementLocator));
-
-        Assert.assertNotNull(element, errorMessage + " не найден на странице.");
-        Assert.assertTrue(element.isDisplayed(), errorMessage + " не отображается.");
-
-        browserHelper.goBack();
-        assertBaseUrlIsCurrentVendor();
     }
 
     public boolean isElementVisible(WebElement element) {
