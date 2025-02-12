@@ -1,6 +1,7 @@
 package com.demoqa.helpers;
 
 import com.demoqa.drivers.DriverManager;
+import com.demoqa.enums.iZDEvendor.EndpointsV;
 import com.demoqa.utils.ConfigReader;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -201,13 +202,22 @@ public class WebElementActions {
         String expectedBaseUrl = ConfigReader.getValue("baseURL");
         String currentBaseUrl = getDriver().getCurrentUrl();
 
-        // Проверка, что текущий URL содержит базовый URL
         Assert.assertTrue(currentBaseUrl.startsWith(expectedBaseUrl),
                 "URL не соответствует базовому URL после возврата. Текущий URL: " + currentBaseUrl);
         return false;
     }
 
-    private void verifyPage(String expectedUrlPart, By elementLocator, String errorMessage) {
+    public boolean assertBaseUrlIsCurrentVendor() {
+        String expectedBaseUrl = ConfigReader.getValue("baseURLV") + EndpointsV.CLIENTS.getEndpoint();
+        String currentBaseUrl = getDriver().getCurrentUrl();
+
+        Assert.assertEquals(currentBaseUrl, expectedBaseUrl,
+                "URL не соответствует ожидаемому. Ожидался: " + expectedBaseUrl + ", но был: " + currentBaseUrl);
+
+        return false;
+    }
+
+    public void verifyPage(String expectedUrlPart, By elementLocator, String errorMessage) {
         String currentUrl = getDriver().getCurrentUrl();
 
         Assert.assertTrue(currentUrl.contains(expectedUrlPart),
@@ -223,6 +233,30 @@ public class WebElementActions {
         assertBaseUrlIsCurrent();
     }
 
+    public void verifyPageVendor(String expectedUrlPart, By elementLocator, String errorMessage) {
+        String currentUrl = getDriver().getCurrentUrl();
+
+        Assert.assertTrue(currentUrl.contains(expectedUrlPart),
+                "URL не содержит '" + expectedUrlPart + "'. Текущий URL: " + currentUrl);
+
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(elementLocator));
+
+        Assert.assertNotNull(element, errorMessage + " не найден на странице.");
+        Assert.assertTrue(element.isDisplayed(), errorMessage + " не отображается.");
+
+        browserHelper.goBack();
+        assertBaseUrlIsCurrentVendor();
+    }
+
+    public boolean isElementVisible(WebElement element) {
+        try {
+            return element.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+
 
     /*--------------------------------------------------------------------------*/
 
@@ -235,6 +269,7 @@ public class WebElementActions {
         waitElementToBeVisible(element);
         scrollToElement(element);
         highlightElement(element);
+        element.clear();
         element.sendKeys(txt);
         return this;
     }
@@ -269,35 +304,40 @@ public class WebElementActions {
     // метод находит все элементы по-указанному xPath, кладет их в лист
     // рандомно выбирает один из элементов
     //выбирает один элемент
-    public WebElement randomElementSelection(String xPath){
-        List<WebElement> list = DriverManager.getDriver().findElements(By.xpath(xPath));
-        if (list == null || list.isEmpty()) {
-            throw new IllegalArgumentException("Элемент не найден");
+    public WebElement randomElementSelection(List<WebElement> elements) {
+        if (elements == null || elements.isEmpty()) {
+            throw new IllegalArgumentException("Элементы не найдены");
         }
+
         Random random = new Random();
-        int index = random.nextInt(list.size());
-        return list.get(index);
+        int index = random.nextInt(elements.size());
+        return elements.get(index);
     }
 
     // метод находит все элементы по-указанному xPath, кладет их в лист
     // рандомно выбирает один или несколько элементов, и кликает на них
-    public void clickRandomElements(String xpath) {
-        List<WebElement> list = DriverManager.getDriver().findElements(By.xpath(xpath));
+    // Измененный метод clickRandomElements для возвращения списка элементов
+    // Метод для случайного выбора элементов (без кликов)
+    public List<WebElement> getRandomElements(List<WebElement> list) {
         if (list == null || list.isEmpty()) {
             throw new IllegalArgumentException("Элементы не найдены");
         }
         Random random = new Random();
-        int index1 = random.nextInt(list.size()) + 1; // Добавляем 1, чтобы index1 был как минимум 1
+
+        // Выбираем случайное количество элементов от 1 до 15, но не больше, чем размер списка
+        int numberOfElementsToSelect = random.nextInt(Math.min(15, list.size())) + 1;
+
         List<WebElement> randomElements = new ArrayList<>();
-        for (int i = 0; i < index1; i++) {
-            int index = random.nextInt(list.size());
+        for (int i = 0; i < numberOfElementsToSelect; i++) {
+            int index = random.nextInt(list.size()); // Выбираем случайный элемент
             randomElements.add(list.get(index));
             list.remove(index); // Удаляем выбранный элемент из списка, чтобы не выбрать его снова
         }
-        for (WebElement element : randomElements) {
-            jsClick(element);
-        }
+
+        return randomElements; // Возвращаем список выбранных элементов
     }
+
+
 
     // метод находит элемент по-указанному xPath, кликая на него раскрывает всплывающий список
     // по указанному xPath кладет весь всплывающий список в лист
@@ -319,6 +359,35 @@ public class WebElementActions {
         int index = random.nextInt(itemList.size());
         return itemList.get(index);
     }
+
+    public void increaseAndDecreaseValue(WebElement plusButton, WebElement minusButton, WebElement valueElement) {
+        int initialValue = Integer.parseInt(valueElement.getText());
+
+        Random random = new Random();
+        int randomIncrements = random.nextInt(5) + 1;
+        int randomDecrements = random.nextInt(randomIncrements + 1);
+
+        // Увеличиваем значение
+        for (int i = 0; i < randomIncrements; i++) {
+            click(plusButton);
+        }
+
+        // Уменьшаем значение, не давая ему стать меньше 1
+        for (int i = 0; i < randomDecrements; i++) {
+            int currentValue = Integer.parseInt(valueElement.getText());
+            if (currentValue > 1) {
+                click(minusButton);
+            }
+        }
+
+        int expectedValue = initialValue + randomIncrements - randomDecrements;
+        expectedValue = Math.max(expectedValue, 1); // Убедимся, что значение не меньше 1
+
+        int actualValue = Integer.parseInt(valueElement.getText());
+
+        Assert.assertEquals(actualValue, expectedValue, "Значение не совпадает с ожидаемым!");
+    }
+
 
     /*--------------------------------------------------------------------------*/
 

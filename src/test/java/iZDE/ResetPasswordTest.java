@@ -50,7 +50,7 @@ public class ResetPasswordTest extends BaseTest {
 
     @Test
     public void testValidEmail() {
-        webElementActions.sendKeys(resetPasswordPage.emailInput, "goku.first@proton.me");
+        webElementActions.sendKeys(resetPasswordPage.emailInput, ConfigReader.getValue("login"));
         webElementActions.click(resetPasswordPage.submitBtn);
         webElementActions.waitFor(20000);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));

@@ -4,34 +4,13 @@ import com.demoqa.entities.iZDE.LoginEntity;
 import com.demoqa.enums.iZDE.Endpoints;
 import com.demoqa.utils.ConfigReader;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.*;
-
-import java.time.Duration;
 
 public class MainMenuTest extends BaseTest {
 
     private String getFullUrl(Endpoints endpoint) {
         return ConfigReader.getValue("baseURL") + endpoint.getEndpoint();
-    }
-
-    private void verifyPage(String expectedUrlPart, By elementLocator, String errorMessage) {
-        String currentUrl = driver.getCurrentUrl();
-
-        Assert.assertTrue(currentUrl.contains(expectedUrlPart),
-                "URL не содержит '" + expectedUrlPart + "'. Текущий URL: " + currentUrl);
-
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(elementLocator));
-
-        Assert.assertNotNull(element, errorMessage + " не найден на странице.");
-        Assert.assertTrue(element.isDisplayed(), errorMessage + " не отображается.");
-
-        browserHelper.goBack();
-        webElementActions.assertBaseUrlIsCurrent();
     }
 
     @BeforeMethod
@@ -46,8 +25,7 @@ public class MainMenuTest extends BaseTest {
     public void testClickStartButton() {
         mainMenuPage.clickStartButton();
 
-        verifyPage(getFullUrl(Endpoints.SEARCH),
-                By.xpath("//div[@class='_contentBackground_qv3mn_6']"),
+        webElementActions.verifyPage(getFullUrl(Endpoints.SEARCH), By.xpath("//div[@class='_contentBackground_qv3mn_6']"),
                 "Блок поисковика");
 
         browserHelper.goBack();
@@ -59,7 +37,7 @@ public class MainMenuTest extends BaseTest {
         mainMenuPage.clickBurgerMenu();
         mainMenuPage.clickSearchButton();
 
-        verifyPage(getFullUrl(Endpoints.SEARCH),
+        webElementActions.verifyPage(getFullUrl(Endpoints.SEARCH),
                 By.xpath("//div[@class='_contentBackground_qv3mn_6']"),
                 "Блок поисковика");
 
@@ -72,7 +50,7 @@ public class MainMenuTest extends BaseTest {
         mainMenuPage.clickBurgerMenu();
         mainMenuPage.clickTravellingButton();
 
-        verifyPage(getFullUrl(Endpoints.TRIPS),
+        webElementActions.verifyPage(getFullUrl(Endpoints.TRIPS),
                 By.xpath("//div[@class='_trips_pp0r2_1']"),
                 "Блок путешествий");
 
@@ -84,8 +62,8 @@ public class MainMenuTest extends BaseTest {
         mainMenuPage.clickBurgerMenu();
         mainMenuPage.clickSupportButton();
 
-        verifyPage(getFullUrl(Endpoints.SUPPORT),
-                By.xpath("//div[@class='_wrapperLayout_h0trw_6']"),
+        webElementActions.verifyPage(getFullUrl(Endpoints.SUPPORT),
+                By.xpath("//div[@class='_container_1nnn2_8']"),
                 "Блок поддержки");
 
         webElementActions.assertBaseUrlIsCurrent();
@@ -95,7 +73,7 @@ public class MainMenuTest extends BaseTest {
     public void testClickProfileButton() {
         mainMenuPage.clickProfileButton();
 
-        verifyPage(getFullUrl(Endpoints.PROFILE),
+        webElementActions.verifyPage(getFullUrl(Endpoints.PROFILE),
                 By.xpath("//div[@class='_wrapper_1yb73_1']"),
                 "Блок профиля");
 
@@ -106,7 +84,7 @@ public class MainMenuTest extends BaseTest {
     public void testClickCellarSearchButton() {
         mainMenuPage.clickCellarSearchButton();
 
-        verifyPage(getFullUrl(Endpoints.SEARCH),
+        webElementActions.verifyPage(getFullUrl(Endpoints.SEARCH),
                 By.xpath("//div[@class='_contentBackground_qv3mn_6']"),
                 "Блок профиля");
 
@@ -118,7 +96,7 @@ public class MainMenuTest extends BaseTest {
     public void testClickCellarTravellingButton() {
         mainMenuPage.clickCellarTravellingButton();
 
-        verifyPage(getFullUrl(Endpoints.TRIPS),
+        webElementActions.verifyPage(getFullUrl(Endpoints.TRIPS),
                 By.xpath("//div[@class='_trips_pp0r2_1']"),
                 "Блок путешествий");
 

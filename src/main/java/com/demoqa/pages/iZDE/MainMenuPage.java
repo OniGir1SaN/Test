@@ -8,7 +8,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class MainMenuPage extends BasePage {
 
-    @FindBy(xpath = "//button[@class='_burgerMenuIcon_1e87t_85']")
+    @FindBy(xpath = "//button[@class='_burgerMenuIcon_28rgb_106']")
     public WebElement burgerBtn;
 
     @FindBy(xpath = "//button[@class='_btn_1er5i_27'][1]")
@@ -35,7 +35,7 @@ public class MainMenuPage extends BasePage {
     @FindBy(xpath = "//a[@class='_btnA_1t1ke_73']")
     public WebElement cellarVendorBtn;
 
-    @FindBy(xpath = "//button[@class='_btnUser_1e87t_90']")
+    @FindBy(xpath = "//button[@class='_btnUser_28rgb_111']")
     public WebElement profileBtn;
 
     @FindBy(xpath = "//img[@alt='Play Market']")

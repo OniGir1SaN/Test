@@ -7,12 +7,12 @@ public enum Endpoints {
     SIGNUP("sign-up"),
     SIGNIN("sign-in"),
     RESET("sign-in/reset-password"),
+    NEW_PASSWORD("sign-in/reset-password/change"),
     SEARCH("search"),
     TRIPS("trips"),
     SUPPORT("support"),
     PROFILE("profile"),
     POLICY("policy");
-
 
     @Getter
     private final String endpoint;

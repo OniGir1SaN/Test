@@ -24,10 +24,6 @@ public class DashboardProfilePage extends BasePage {
     @FindBy(className ="_btnExit_8hj97_80")
     public WebElement exitBtn2;
 
-    public void clickPrivateProfileBtn() {
-        webElementActions.click(privateProfileBtn);
-    }
-
     public void clickCurrencyBtn() {
         webElementActions.click(currencyBtn);
     }

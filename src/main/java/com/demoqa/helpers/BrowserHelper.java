@@ -18,6 +18,10 @@ public class BrowserHelper {
         this.driver = driver;
     }
 
+    public String getCurrentUrl() {
+        return driver.getCurrentUrl();
+    }
+
     // Открыть URL
     public void open(String url) {
         driver.navigate().to(url);

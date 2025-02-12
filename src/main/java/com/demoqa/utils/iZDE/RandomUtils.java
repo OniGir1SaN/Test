@@ -1,6 +1,7 @@
 package com.demoqa.utils.iZDE;
 
 import com.demoqa.entities.iZDE.*;
+import com.demoqa.utils.ConfigReader;
 import com.github.javafaker.Faker;
 
 import java.security.SecureRandom;
@@ -13,8 +14,8 @@ public class RandomUtils {
 
     public LoginEntity validLoginEntity() {
         LoginEntity entity = new LoginEntity();
-        entity.setEmail("GOku.first@proton.me");
-        entity.setPassword("AAAAA1!!CloseEye1");
+        entity.setEmail(ConfigReader.getValue("login"));
+        entity.setPassword(ConfigReader.getValue("password"));
         return entity;
     }
 
@@ -59,7 +60,7 @@ public class RandomUtils {
 
     public ResetNumberEntity generateRandomResetNumberEntity() {
         ResetNumberEntity resetNumberEntity = new ResetNumberEntity();
-        resetNumberEntity.setNumber(100000 + random.nextInt(900000)); // Генерация 6-значного номера
+        resetNumberEntity.setNumber(100000 + random.nextInt(900000));
         resetNumberEntity.setPassword(generateRandomPassword());
         return resetNumberEntity;
     }

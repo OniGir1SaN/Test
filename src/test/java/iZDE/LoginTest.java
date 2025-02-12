@@ -46,10 +46,6 @@ public class LoginTest extends BaseTest {
         Allure.step("Проверка ошибки: " + expectedErrorMessage);
     }
 
-    private String getErrorMessage() {
-        return driver.findElement(By.xpath("//p[@class='errorInputMessage']")).getText();
-    }
-
     @Test(groups = "validation")
     public void testLoginPlaceholders() {
         loginPage.verifyEmailAndPasswordPlaceholders();
@@ -117,17 +113,5 @@ public class LoginTest extends BaseTest {
 
         Assert.assertTrue(loginPage.isTextLogin2Correct(expectedText4),
                 "Текст для Login2 не соответствует ожидаемому тексту.");
-    }
-
-    @Attachment(value = "Screenshot on Failure", type = "image/png")
-    public byte[] takeScreenshot() {
-        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-    }
-
-    @AfterMethod
-    public void tearDown(ITestResult result) {
-        if (ITestResult.FAILURE == result.getStatus()) {
-            takeScreenshot();
-        }
     }
 }
